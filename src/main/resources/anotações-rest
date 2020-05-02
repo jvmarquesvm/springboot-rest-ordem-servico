@@ -1,0 +1,107 @@
+#### Organizações que coordenam protocolos na internet ####
+	Site de Códigos Http
+	* https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+	* https://httpstatuses.com/
+	* https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+	
+#### Adicionar o Spring DevTools ####
+	* Ferramenta de desenvolvimento que se utiliza para o restart da apliação
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+#### Negociação de Conteúdo ####
+	* Por padrão é JSON do springboot
+		- Se o cliente quiser outra representação ele utliza o cabeçalho da requisição
+		   --> Accept = application/xml
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>		   
+
+#### Inicializar o Banco de dados ####
+	* Necessário o JPA e driver jdbc do Mysql
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		Configuração do Banco de dados
+			- src/main/resources
+				application.properties
+					spring.datasource.url=jdbc:mysql://localhost:3306/osworks?createDatabaseIfNotExist=true&serverTimezone=UTC&&UseSSL=false
+					spring.datasource.username=root
+					spring.datasource.password=		
+		
+#### Tela de Editar o SpringBoot ####
+	* Não encontrei essa tela em nenhum lugar
+	* No POM.xml, botão direito Spring -> Spring Starters	
+	
+	
+#### Utilizar Ferramenta de Migração de Banco de dados ####
+	* Utilizar o flyway(Controle de versão do banco de dados)
+	* no Edit Starters já em a integração flyway
+	* Configurar o Banco de dados
+		- Criar a pasta "db/migration" dentro de "src/main/migration"
+		- Criar o arquivo na seguinte convenção:
+			* v<numeros><dois underscore><nome-do-script>.sql
+			  .: v001__cria-tabela-cliente.sql  <<errado>>
+			  .: V01__cria-tabela-cliente.sql <<correto>>
+			  Obs: "V" maiusculo
+
+#### Persistência utilizando Jakarta Persistence ####
+	* JPA ( Java Persistence API ) agora é Jakarta Persistence
+	* Ajuda a mapear um banco de dados relacional através de classes java
+	* Está sobre a Foundation Eclipse
+	https://projects.eclipse.org/projects/ee4j.jpa
+		Jakarta Persistence é a especificação
+		Hibernate e Eclipse link são a implementação da especificação
+		
+		Passos para uma mapeamento simple objeto relacional
+		Pacote javax.persistence
+		@Entity
+		@id
+		@GeneratedValue(strategy.IDENTITY)
+		@Column(name = "nome")
+		EqualsAndHashCode com o Id
+		
+		Definir e Injetar @PersistenceContext EntityManager 
+
+#### Spring Data JPA ####
+	* É uma lib que ajuda a criar repositorios com o Jakarta Persistence
+	* Repositorio é uma classe que tem a responsabilidade de implementar métodos que 
+	     	fazem operações de persistencia de dados
+	     	
+#### Validação de Dados ####
+	* Utilizar a especificação Jakarta Bean Validation
+	* Utitlizar o hibernate-validation como implementação da especificação
+		- @NotBlank - não aceita nulo, "" ou "   "
+		- @Email 
+	
+#### Padronização de Data ####
+ISO 8601
+ 	* Utilizar o OffsetDateTime
+ 	
+#### Domain Model x Representation Model ####
+	* Domain Model - modelo de representação utilizado dentro da aplicação (DTO)
+	* Represetation Model - modelo de representação utilizado para entrada e saída ao cliente
+	* Para converter um modelo no outro, utilizar o ModelMapper
+	  .: http://modelmapper.org/
+	* Procurar a dependencia em:
+	  .: https://search.maven.org/
+	  
+	<dependency>
+	  <groupId>org.modelmapper</groupId>
+	  <artifactId>modelmapper</artifactId>
+	  <version>2.3.7</version>
+	</dependency>
+	
+	
+	
